@@ -2,6 +2,7 @@
 ## CJM van Steenderen, EV Mauda, W Kirkman, GF Sutton
 
 :e-mail: vsteenderen@gmail.com
+:e-mail: g.sutton@ru.ac.za
 
 Download this repository, open the **ACP_SDM_workflow.Rproj**, and run the **run_me.R** file. Follow the prompts in the console to run through all the code.
 
