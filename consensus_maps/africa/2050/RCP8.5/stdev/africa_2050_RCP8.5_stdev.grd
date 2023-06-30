@@ -1,0 +1,19 @@
+[general]
+[georeference]
+nrows=2112
+ncols=1944
+xmin=-26
+ymin=-48
+xmax=55
+ymax=40
+projection=+proj=longlat +datum=WGS84 +no_defs
+[data]
+datatype=FLT4S
+nodatavalue=1.#QNAN
+byteorder=little
+nbands=1
+minvalue=-3.4020229196782325e+038
+maxvalue=3.4027317898938801e+038
+categorical=FALSE
+[description]
+layername=sd
