@@ -48,7 +48,8 @@ pacman::p_load(
   devtools,
   caret,
   factoextra,
-  ggfortify
+  ggfortify,
+  tcltk2
 )
 
 if(!require("InformationValue")){

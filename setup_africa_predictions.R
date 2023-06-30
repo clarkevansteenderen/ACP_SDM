@@ -28,11 +28,6 @@ climPred = predictor_sets[[as.integer(user_choice)]]
 ##########################################################
 
 # Get map of Africa to project our model over
-africa_ext <- rnaturalearth::ne_countries(scale = "medium",
-                                          returnclass = "sf") %>%
-  dplyr::filter(continent == "Africa")
-
-# Get map of Africa to project our model over
 africa_ext <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf") %>%
   dplyr::filter(continent == "Africa")
 
@@ -48,7 +43,7 @@ africa_env_layers = raster::brick(africa_env_layers)
 crs_wgs84 <- sp::CRS(SRS_string = "EPSG:4326")
 crs(africa_env_layers) <- crs_wgs84
 
-user_dir = choose.dir(caption = "SELECT a directory to write current Africa climate data (e.g. LITERATURE/wang_set/africa_env_layers): ")
+user_dir = tcltk::tk_choose.dir(caption = "SELECT a directory to write/fetch current Africa climate data (e.g. LITERATURE/wang_set/africa_env_layers): ")
 #user_dir = readline("Directory to write current Africa climate data (e.g. LITERATURE/wang_set/africa_env_layers): ")
 #user_dir = user_dir
 user_dir_2010 = paste(user_dir, "/2010/", sep = "")
@@ -92,18 +87,22 @@ africa_env_layers <- raster::crop( africa_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(africa_env_layers) <- crs_wgs84
 
-# NB: divide temperature bio values by ten to get it to the same scale as the data in the current
-# climate layers. These are bio numbers 1 to 11
-
-# Loop through each object in africa_env_layers and divide by ten if it is any of bio 1 - 11
-for (layer_name in names(africa_env_layers)) {
-  # Check if the layer name ends with a number between 1 and 11
-  if (grepl("\\d$", layer_name) && as.numeric(sub(".+_bio_", "", layer_name)) %in% 1:11) {
-    # Divide the corresponding layer by ten
-    africa_env_layers[[layer_name]] <- africa_env_layers[[layer_name]] / 10
-    message(c(layer_name, " was divided by ten"))
+if(already_downloaded_future_clim != "y"){
+  
+  # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
+  # climate layers. These are bio numbers 1 to 11
+  
+  # Loop through each object in africa_env_layers and divide by ten if it is any of bio 1 - 11
+  for (layer_name in names(africa_env_layers)) {
+    # Check if the layer name ends with a number between 1 and 11
+    if (grepl("\\d$", layer_name) && as.numeric(sub(".+_bio_", "", layer_name)) %in% 1:11) {
+      # Divide the corresponding layer by ten
+      africa_env_layers[[layer_name]] <- africa_env_layers[[layer_name]] / 10
+      message(c(layer_name, " was divided by ten"))
+    }
   }
-}
+  
+}# if
 
 if(!dir.exists(paste(user_dir, "/2050/RCP4.5", sep = ""))){
   
@@ -131,7 +130,9 @@ if(!dir.exists(paste(user_dir, "/2050/RCP4.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+} else{
+  user_dir_2050_RCP4.5 = paste(user_dir, "/2050/RCP4.5/", sep = "")
+}
 
 
 # *********************************************
@@ -149,19 +150,25 @@ africa_env_layers <- raster::crop( africa_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(africa_env_layers) <- crs_wgs84
 
-# NB: divide temperature bio values by ten to get it to the same scale as the data in the current
-# climate layers. These are bio numbers 1 to 11
-
-# Loop through each object in africa_env_layers and divide by ten if it is any of bio 1 - 11
-for (layer_name in names(africa_env_layers)) {
-  # Check if the layer name ends with a number between 1 and 11, but excluding 3 and 4
-  if (grepl("\\d$", layer_name) && as.numeric(sub(".+_bio_", "", layer_name)) %in% 1:11 && 
-      !as.numeric(sub(".+_bio_", "", layer_name)) %in% c(3, 4) ) {
-    # Divide the corresponding layer by ten
-    africa_env_layers[[layer_name]] <- africa_env_layers[[layer_name]] / 10
-    message(c(layer_name, " was divided by ten"))
+if(already_downloaded_future_clim != "y"){
+  
+  # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
+  # climate layers. These are bio numbers 1 to 11
+  
+  # Loop through each object in africa_env_layers and divide by ten if it is any of bio 1 - 11
+  for (layer_name in names(africa_env_layers)) {
+    # Check if the layer name ends with a number between 1 and 11, but excluding 3 and 4
+    if (grepl("\\d$", layer_name) && as.numeric(sub(".+_bio_", "", layer_name)) %in% 1:11 && 
+        !as.numeric(sub(".+_bio_", "", layer_name)) %in% c(3, 4) ) {
+      # Divide the corresponding layer by ten
+      africa_env_layers[[layer_name]] <- africa_env_layers[[layer_name]] / 10
+      message(c(layer_name, " was divided by ten"))
+    }
   }
+  
 }
+
+
 
 if(!dir.exists(paste(user_dir, "/2050/RCP8.5", sep = ""))){
   
@@ -188,7 +195,9 @@ if(!dir.exists(paste(user_dir, "/2050/RCP8.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+} else{
+  user_dir_2050_RCP8.5 = paste(user_dir, "/2050/RCP8.5/", sep = "")
+}
 
 
 # *********************************************
@@ -206,6 +215,8 @@ africa_env_layers <- raster::crop( africa_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(africa_env_layers) <- crs_wgs84
 
+
+if(already_downloaded_future_clim != "y"){
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -219,6 +230,8 @@ for (layer_name in names(africa_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+  
+}#if
 
 if(!dir.exists(paste(user_dir, "/2070/RCP4.5", sep = ""))){
   
@@ -246,7 +259,9 @@ if(!dir.exists(paste(user_dir, "/2070/RCP4.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+} else{
+  user_dir_2070_RCP4.5 = paste(user_dir, "/2070/RCP4.5/", sep = "")
+}
 
 
 # *********************************************
@@ -264,6 +279,9 @@ africa_env_layers <- raster::crop( africa_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(africa_env_layers) <- crs_wgs84
 
+
+if(already_downloaded_future_clim != "y"){
+  
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -277,6 +295,8 @@ for (layer_name in names(africa_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+  
+}#if
 
 if(!dir.exists(paste(user_dir, "/2070/RCP8.5", sep = ""))){
   
@@ -303,4 +323,6 @@ if(!dir.exists(paste(user_dir, "/2070/RCP8.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+} else{
+  user_dir_2070_RCP8.5 = paste(user_dir, "/2070/RCP8.5/", sep = "")
+}

@@ -47,7 +47,7 @@ brazil_env_layers = raster::brick(brazil_env_layers)
 crs_wgs84 <- sp::CRS(SRS_string = "EPSG:4326")
 crs(brazil_env_layers) <- crs_wgs84
 
-user_dir = choose.dir(caption = "SELECT a directory to write current brazil climate data (e.g. LITERATURE/wang_set/brazil_env_layers): ")
+user_dir = tcltk::tk_choose.dir(caption = "SELECT a directory to write current brazil climate data (e.g. LITERATURE/wang_set/brazil_env_layers): ")
 #user_dir = readline("Directory to write current brazil climate data (e.g. LITERATURE/wang_set/brazil_env_layers): ")
 #user_dir = user_dir
 user_dir_2010 = paste(user_dir, "/2010/", sep = "")
@@ -91,6 +91,7 @@ brazil_env_layers <- raster::crop( brazil_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(brazil_env_layers) <- crs_wgs84
 
+if(already_downloaded_future_clim != "y"){
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -103,6 +104,8 @@ for (layer_name in names(brazil_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+  
+}#if
 
 if(!dir.exists(paste(user_dir, "/2050/RCP4.5", sep = ""))){
   
@@ -130,7 +133,9 @@ if(!dir.exists(paste(user_dir, "/2050/RCP4.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+}else{
+  user_dir_2050_RCP4.5 = paste(user_dir, "/2050/RCP4.5/", sep = "")
+}
 
 
 # *********************************************
@@ -148,6 +153,7 @@ brazil_env_layers <- raster::crop( brazil_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(brazil_env_layers) <- crs_wgs84
 
+if(already_downloaded_future_clim != "y"){
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -161,6 +167,8 @@ for (layer_name in names(brazil_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+  
+}#if
 
 if(!dir.exists(paste(user_dir, "/2050/RCP8.5", sep = ""))){
   
@@ -187,7 +195,9 @@ if(!dir.exists(paste(user_dir, "/2050/RCP8.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+}else{
+  user_dir_2050_RCP8.5 = paste(user_dir, "/2050/RCP8.5/", sep = "")
+}
 
 
 # *********************************************
@@ -205,6 +215,7 @@ brazil_env_layers <- raster::crop( brazil_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(brazil_env_layers) <- crs_wgs84
 
+if(already_downloaded_future_clim != "y"){
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -218,6 +229,7 @@ for (layer_name in names(brazil_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+}#if
 
 if(!dir.exists(paste(user_dir, "/2070/RCP4.5", sep = ""))){
   
@@ -245,7 +257,9 @@ if(!dir.exists(paste(user_dir, "/2070/RCP4.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+}else{
+  user_dir_2070_RCP4.5 = paste(user_dir, "/2070/RCP4.5/", sep = "")
+}
 
 
 # *********************************************
@@ -263,6 +277,7 @@ brazil_env_layers <- raster::crop( brazil_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(brazil_env_layers) <- crs_wgs84
 
+if(already_downloaded_future_clim != "y"){
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -276,6 +291,7 @@ for (layer_name in names(brazil_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+}#if
 
 if(!dir.exists(paste(user_dir, "/2070/RCP8.5", sep = ""))){
   
@@ -302,4 +318,6 @@ if(!dir.exists(paste(user_dir, "/2070/RCP8.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+}else{
+  user_dir_2070_RCP8.5 = paste(user_dir, "/2070/RCP8.5/", sep = "")
+}

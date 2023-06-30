@@ -183,7 +183,7 @@ if(download_future_clim_data == "y"){
     file.rename(old_file, new_file)
   }
   
-}
+}#if
 
 
 # if already downloaded, read in here:

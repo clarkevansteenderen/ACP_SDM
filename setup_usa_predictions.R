@@ -47,7 +47,7 @@ usa_env_layers = raster::brick(usa_env_layers)
 crs_wgs84 <- sp::CRS(SRS_string = "EPSG:4326")
 crs(usa_env_layers) <- crs_wgs84
 
-user_dir = choose.dir(caption = "SELECT a directory to write current usa climate data (e.g. LITERATURE/wang_set/usa_env_layers): ")
+user_dir = tcltk::tk_choose.dir(caption = "SELECT a directory to write current usa climate data (e.g. LITERATURE/wang_set/usa_env_layers): ")
 #user_dir = readline("Directory to write current usa climate data (e.g. LITERATURE/wang_set/usa_env_layers): ")
 #user_dir = user_dir
 user_dir_2010 = paste(user_dir, "/2010/", sep = "")
@@ -94,6 +94,7 @@ usa_env_layers <- raster::crop( usa_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(usa_env_layers) <- crs_wgs84
 
+if(already_downloaded_future_clim != "y"){
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -106,6 +107,7 @@ for (layer_name in names(usa_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+}#if
 
 if(!dir.exists(paste(user_dir, "/2050/RCP4.5", sep = ""))){
   
@@ -133,7 +135,9 @@ if(!dir.exists(paste(user_dir, "/2050/RCP4.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+}else{
+  user_dir_2050_RCP4.5 = paste(user_dir, "/2050/RCP4.5/", sep = "")
+}
 
 
 # *********************************************
@@ -157,6 +161,7 @@ crs(usa_env_layers) <- crs_wgs84
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
+if(already_downloaded_future_clim != "y"){
 # Loop through each object in usa_env_layers and divide by ten if it is any of bio 1 - 11
 for (layer_name in names(usa_env_layers)) {
   # Check if the layer name ends with a number between 1 and 11, but excluding 3 and 4
@@ -167,6 +172,7 @@ for (layer_name in names(usa_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+}#if
 
 if(!dir.exists(paste(user_dir, "/2050/RCP8.5", sep = ""))){
   
@@ -193,7 +199,9 @@ if(!dir.exists(paste(user_dir, "/2050/RCP8.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+}else{
+  user_dir_2050_RCP8.5 = paste(user_dir, "/2050/RCP8.5/", sep = "")
+}
 
 
 # *********************************************
@@ -214,6 +222,7 @@ usa_env_layers <- raster::crop( usa_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(usa_env_layers) <- crs_wgs84
 
+if(already_downloaded_future_clim != "y"){
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -227,6 +236,7 @@ for (layer_name in names(usa_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+}#if
 
 if(!dir.exists(paste(user_dir, "/2070/RCP4.5", sep = ""))){
   
@@ -254,7 +264,9 @@ if(!dir.exists(paste(user_dir, "/2070/RCP4.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+}else{
+  user_dir_2070_RCP4.5 = paste(user_dir, "/2070/RCP4.5/", sep = "")
+}
 
 
 # *********************************************
@@ -275,6 +287,7 @@ usa_env_layers <- raster::crop( usa_env_layers,
 crs_wgs84 <- CRS(SRS_string = "EPSG:4326")
 crs(usa_env_layers) <- crs_wgs84
 
+if(already_downloaded_future_clim != "y"){
 # NB: divide temperature bio values by ten to get it to the same scale as the data in the current
 # climate layers. These are bio numbers 1 to 11
 
@@ -288,6 +301,7 @@ for (layer_name in names(usa_env_layers)) {
     message(c(layer_name, " was divided by ten"))
   }
 }
+}#if
 
 if(!dir.exists(paste(user_dir, "/2070/RCP8.5", sep = ""))){
   
@@ -314,4 +328,6 @@ if(!dir.exists(paste(user_dir, "/2070/RCP8.5", sep = ""))){
   
   message("Done :)")
   
-}#if
+}else{
+  user_dir_2070_RCP8.5 = paste(user_dir, "/2070/RCP8.5/", sep = "")
+}

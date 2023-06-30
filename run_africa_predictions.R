@@ -5,7 +5,7 @@
 time_periods <- c(2010, 2050, 2070)
 scenarios <- c("RCP4.5", "RCP8.5")
 
-user_model_choice =  choose.dir(caption = "SELECT directory with MaxEnt model (e.g. LITERATURE/wang_set/default_maxent_model)")
+user_model_choice =  tcltk::tk_choose.dir(caption = "SELECT directory with MaxEnt model (e.g. LITERATURE/wang_set/default_maxent_model)")
 #user_model_choice = readline("Directory with MaxEnt model (e.g. LITERATURE/wang_set/default_maxent_model): ")
 #user_model_choice = user_model_choice
 
@@ -14,7 +14,7 @@ if(grepl("tuned", user_model_choice)) user_model_type = "tuned_maxent"
 
 message(c("You chose the ", user_model_type, " model" ))
 
-results_output = choose.dir(caption = "SELECT directory to save results (e.g. LITERATURE/wang_set/Africa_results)")
+results_output = tcltk::tk_choose.dir(caption = "SELECT directory to save results (e.g. LITERATURE/wang_set/Africa_results)")
 #results_output = readline("Directory to save results (e.g. LITERATURE/wang_set/Africa_results): ")
 #results_output = results_output
 
@@ -213,3 +213,35 @@ ggsave(filename = paste(dirname(africa_binary_2010_raster_path), "/", "2010_bina
        africa_binary_2010, dpi = 400, height = 8, width = 8)
 ggsave(filename = paste(dirname(africa_binary_2010_raster_path), "/", "2010_binary.png", sep = ""), 
        africa_binary_2010, dpi = 400, height = 8, width = 8)
+
+
+# -----------------------------------------------------------------------------
+# Dispersal models 
+# -----------------------------------------------------------------------------
+
+dispersal_q = readline("Do you want to run a dispersal model (NOTE: it takes a while to run)? y or n ")
+dispersal_q = tolower(substr(dispersal_q,1,1))
+
+if(dispersal_q == "y"){
+  
+  message("Enter one or more dispersal distances (km) per year: ")
+  dispersal_rates = scan()
+  
+  #Add in dispersal data
+  #- Here, we specify 2km per year
+  dispersaldata <-
+    data.frame(
+      Species = "Diaphorina citri",
+      Rate = dispersal_rates
+    )
+  
+  # Run dispersal rate analysis
+  megaSDM::dispersalRate(
+    result_dir = results_output_path,
+    dispersaldata = dispersaldata,
+    time_periods = time_periods,
+    scenarios = scenarios,
+    ncores = 2
+  )
+  
+}#if
