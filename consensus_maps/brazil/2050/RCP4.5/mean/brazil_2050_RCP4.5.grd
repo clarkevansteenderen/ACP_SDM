@@ -1,0 +1,19 @@
+[general]
+[georeference]
+nrows=936
+ncols=941
+xmin=-74
+ymin=-33.75
+xmax=-34.7916666666667
+ymax=5.2499999999999645
+projection=+proj=longlat +datum=WGS84 +no_defs
+[data]
+datatype=FLT4S
+nodatavalue=1.#QNAN
+byteorder=little
+nbands=1
+minvalue=-2.9024083521524412e+038
+maxvalue=2.7022422658944831e+038
+categorical=FALSE
+[description]
+layername=mean
