@@ -7,13 +7,13 @@ already_downloaded_future_clim = tolower(substr(already_downloaded_future_clim,1
 
 # load all the required packages and plot settings
 source("setup.R")
-# load up the climate predictor sets
-source("predictor_sets.R")
-
 # automatically create all the folders and sub-folders
 source("create_folders.R")
 # acquire the necessary input data (climate layers and GPS coordinates)
 source("get_data.R")
+# load up the climate predictor sets
+source("predictor_sets.R")
+
 # extract presence points
 source("presence_points.R")
 # generate background points
