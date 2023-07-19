@@ -5,8 +5,7 @@
 # Beforehand, download the Koppen Geiger shapefiles needed:
 # https://www.climond.org/Core/Authenticated/KoppenGeiger.aspx
 
-message("Select your Koppen Geiger shape file (e.g. WC05_1975H_Koppen.shp) ")
-kg_file_path = tcltk::tk_choose.files()
+kg_file_path = readline("Paste the file path to your Koppen Geiger shape file (e.g. data/shapefiles/koppen_geiger/WC05_1975H_Koppen.shp): ")
 
 kg_layer = sf::st_read(kg_file_path)
 
