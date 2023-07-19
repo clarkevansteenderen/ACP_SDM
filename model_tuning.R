@@ -29,7 +29,7 @@ selected_option <- predictor_spatrasters[[as.integer(user_choice)]]
 ##########################################################
 
 
-bg_pts <- background_points_all_19 %>%
+bg_pts <- background_points_all_19_all_preds %>%
   dplyr::select(
     lon = decimalLongitude , 
     lat = decimalLatitude
